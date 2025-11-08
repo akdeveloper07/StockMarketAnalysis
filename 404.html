@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Stock Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    Premium Stock Analysis
+                </h1>
+                <div class="premium-badge">
+                    <i class="fas fa-crown"></i>
+                    PREMIUM
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Controls Section -->
+            <section class="controls-section">
+                <div class="control-card">
+                    <h2><i class="fas fa-sliders-h"></i> Analysis Parameters</h2>
+                    <div class="form-group">
+                        <label for="startDate">Start Date:</label>
+                        <input type="date" id="startDate" value="2024-09-01">
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date:</label>
+                        <input type="date" id="endDate" value="2024-10-01">
+                    </div>
+                    <button id="analyzeBtn" class="analyze-btn">
+                        <i class="fas fa-rocket"></i>
+                        Analyze Stocks
+                    </button>
+                </div>
+            </section>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="loading-spinner hidden">
+                <div class="spinner"></div>
+                <p>Analyzing market trends...</p>
+            </div>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section hidden">
+                <!-- Key Metrics -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Main Trend Stock</h3>
+                            <p id="mainTrendStock" class="metric-value">-</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Variance Explained</h3>
+                            <p id="varianceExplained" class="metric-value">-</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Total Variance</h3>
+                            <p id="totalVariance" class="metric-value">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3><i class="fas fa-trending-up"></i> Market Trend Analysis</h3>
+                        <div class="chart-container">
+                            <img id="trendChart" class="chart-image" alt="Market Trend Chart">
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3><i class="fas fa-line-chart"></i> Cumulative Returns</h3>
+                        <div class="chart-container">
+                            <img id="returnsChart" class="chart-image" alt="Returns Chart">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Tables -->
+                <div class="data-section">
+                    <div class="data-card">
+                        <h3><i class="fas fa-table"></i> Stock Prices</h3>
+                        <div class="table-container">
+                            <table id="pricesTable" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>RELIANCE</th>
+                                        <th>TCS</th>
+                                        <th>INFY</th>
+                                        <th>HDFC</th>
+                                        <th>ITC</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="data-card">
+                        <h3><i class="fas fa-calculator"></i> Eigenvalues & Eigenvectors</h3>
+                        <div class="table-container">
+                            <table id="eigenTable" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Component</th>
+                                        <th>Eigenvalue</th>
+                                        <th>RELIANCE</th>
+                                        <th>TCS</th>
+                                        <th>INFY</th>
+                                        <th>HDFC</th>
+                                        <th>ITC</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Premium Stock Analysis. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
