@@ -1,218 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Stock Analysis</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<title>GreenGarden Invoice</title>
+
+<style>
+body { background:#eaf5ef; font-family:Poppins; }
+#invoice {
+  width:800px;
+  margin:auto;
+  background:white;
+  position:relative;
+}
+#bg {
+  width:100%;
+}
+.text {
+  position:absolute;
+  color:#1b7f3b;
+  font-weight:600;
+}
+</style>
+
 </head>
+
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <h1 class="logo">
-                    <i class="fas fa-chart-line"></i>
-                    Premium Stock Analysis
-                </h1>
-                <div class="premium-badge">
-                    <i class="fas fa-crown"></i>
-                    PREMIUM EDITION
-                </div>
-            </div>
-        </header>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Controls Section -->
-            <section class="controls-section">
-                <div class="control-card">
-                    <h2><i class="fas fa-sliders-h"></i> Analysis Parameters</h2>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="startDate"><i class="fas fa-calendar-start"></i> Start Date:</label>
-                            <input type="date" id="startDate" value="2024-09-01">
-                        </div>
-                        <div class="form-group">
-                            <label for="endDate"><i class="fas fa-calendar-end"></i> End Date:</label>
-                            <input type="date" id="endDate" value="2024-10-01">
-                        </div>
-                    </div>
-                    <button id="analyzeBtn" class="analyze-btn">
-                        <i class="fas fa-rocket"></i>
-                        Analyze Stocks
-                    </button>
-                    <div class="api-status">
-                        <span id="apiStatus" class="status-offline">
-                            <i class="fas fa-circle"></i>
-                            API: Checking...
-                        </span>
-                    </div>
-                </div>
-            </section>
+<div id="invoice">
 
-            <!-- Loading Spinner -->
-            <div id="loadingSpinner" class="loading-spinner hidden">
-                <div class="spinner"></div>
-                <p>Analyzing market trends and performing PCA analysis...</p>
-            </div>
+<img src="invoice-template.png" id="bg">
 
-            <!-- Results Section -->
-            <section id="resultsSection" class="results-section hidden">
-                <!-- Key Metrics -->
-                <div class="section-title">
-                    <i class="fas fa-tachometer-alt"></i>
-                    Key Metrics
-                </div>
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-icon primary">
-                            <i class="fas fa-chess-king"></i>
-                        </div>
-                        <div class="metric-content">
-                            <h3>Main Trend Stock</h3>
-                            <p id="mainTrendStock" class="metric-value">-</p>
-                            <span class="metric-label">Highest influence on market trend</span>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-icon success">
-                            <i class="fas fa-chart-pie"></i>
-                        </div>
-                        <div class="metric-content">
-                            <h3>Variance Explained</h3>
-                            <p id="varianceExplained" class="metric-value">-</p>
-                            <span class="metric-label">By first principal component</span>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-icon warning">
-                            <i class="fas fa-layer-group"></i>
-                        </div>
-                        <div class="metric-content">
-                            <h3>Total Variance</h3>
-                            <p id="totalVariance" class="metric-value">-</p>
-                            <span class="metric-label">Overall market volatility</span>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-icon info">
-                            <i class="fas fa-calendar-day"></i>
-                        </div>
-                        <div class="metric-content">
-                            <h3>Trading Days</h3>
-                            <p id="tradingDays" class="metric-value">-</p>
-                            <span class="metric-label">In analysis period</span>
-                        </div>
-                    </div>
-                </div>
+<!-- Order Data Overlay -->
+<div class="text" style="top:160px; left:80px;" id="orderId"></div>
+<div class="text" style="top:200px; left:80px;" id="date"></div>
+<div class="text" style="top:160px; right:80px;" id="customer"></div>
 
-                <!-- Charts -->
-                <div class="section-title">
-                    <i class="fas fa-chart-bar"></i>
-                    Visual Analysis
-                </div>
-                <div class="charts-grid">
-                    <div class="chart-card">
-                        <h3><i class="fas fa-trending-up"></i> Market Trend Analysis</h3>
-                        <p class="chart-description">First principal component showing stock influence on main market trend</p>
-                        <div class="chart-container">
-                            <img id="trendChart" class="chart-image" alt="Market Trend Chart">
-                        </div>
-                    </div>
-                    <div class="chart-card">
-                        <h3><i class="fas fa-line-chart"></i> Cumulative Returns</h3>
-                        <p class="chart-description">Performance comparison of all stocks over the selected period</p>
-                        <div class="chart-container">
-                            <img id="returnsChart" class="chart-image" alt="Returns Chart">
-                        </div>
-                    </div>
-                    <div class="chart-card full-width">
-                        <h3><i class="fas fa-project-diagram"></i> Correlation Matrix</h3>
-                        <p class="chart-description">Heatmap showing correlation between different stock returns</p>
-                        <div class="chart-container">
-                            <img id="correlationChart" class="chart-image" alt="Correlation Chart">
-                        </div>
-                    </div>
-                </div>
+</div>
 
-                <!-- Data Tables -->
-                <div class="section-title">
-                    <i class="fas fa-table"></i>
-                    Detailed Data
-                </div>
-                <div class="data-section">
-                    <div class="data-card">
-                        <h3><i class="fas fa-coins"></i> Recent Stock Prices</h3>
-                        <div class="table-container">
-                            <table id="pricesTable" class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>RELIANCE</th>
-                                        <th>TCS</th>
-                                        <th>INFY</th>
-                                        <th>HDFC BANK</th>
-                                        <th>ITC</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
+<button onclick="downloadPDF()">Download PDF</button>
 
-                    <div class="data-card">
-                        <h3><i class="fas fa-calculator"></i> PCA Components</h3>
-                        <p class="table-description">Eigenvalues and Eigenvectors from Principal Component Analysis</p>
-                        <div class="table-container">
-                            <table id="eigenTable" class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Component</th>
-                                        <th>Eigenvalue</th>
-                                        <th>RELIANCE</th>
-                                        <th>TCS</th>
-                                        <th>INFY</th>
-                                        <th>HDFC BANK</th>
-                                        <th>ITC</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <p>&copy; 2024 Premium Stock Analysis. All rights reserved.</p>
-                
-            </div>
-        </footer>
-    </div>
+<script>
+let order = JSON.parse(localStorage.getItem("order"));
 
-    <!-- Error Modal -->
-    <div id="errorModal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header error">
-                <h3><i class="fas fa-exclamation-triangle"></i> Analysis Error</h3>
-                <button class="modal-close" onclick="closeModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p id="errorMessage"></p>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-btn" onclick="closeModal()">OK</button>
-            </div>
-        </div>
-    </div>
+document.getElementById("orderId").innerText = "Invoice #: " + order.id;
+document.getElementById("date").innerText = "Date: " + order.date;
+document.getElementById("customer").innerText = "Invoice To: " + order.name;
 
-    <script src="script.js"></script>
+function downloadPDF(){
+ html2pdf().from(document.getElementById("invoice"))
+ .save("GreenGarden_Invoice.pdf");
+}
+</script>
+
 </body>
 </html>
